@@ -1,0 +1,33 @@
+name: Import existing TypeScript frontends
+on:
+  push:
+    paths:
+      - '.github/workflows/import-frontends.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Node.js destination
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Retrieve original public application
+        run: git clone --depth 1 --branch main https://github.com/ooarchitect92/Chat.git /tmp/chat-original
+      - name: Copy unchanged frontend and website sources
+        run: |
+          set -euo pipefail
+          for folder in frontend website website-platform; do
+            test -d "/tmp/chat-original/$folder"
+            test ! -e "$folder"
+            cp -a "/tmp/chat-original/$folder" "./$folder"
+          done
+          git add frontend website website-platform
+          if ! git diff --cached --quiet; then
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Import existing TS frontend and website source without modification'
+            git push origin HEAD:main
+          fi
