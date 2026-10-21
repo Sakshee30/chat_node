@@ -12,6 +12,7 @@ Node.js / TypeScript migration of [ooarchitect92/Chat](https://github.com/ooarch
 - `GET /health/ready` (PostgreSQL / Redis / NVIDIA checks; always 503 until the whole platform is verified)
 - HTTP security response headers, deterministic injected-probe tests
 - GitHub Actions CI for type checking, tests, and compilation
+- Python `security.py` token/JWT generation and verification, Argon2 password hashing/verification, API key generation and fingerprinting converted to Node.js TypeScript with unit tests (not wired into authentication endpoints yet)
 
 **Imported unchanged:** The existing React frontend (568 source/repository files), website (197 files), and website-platform (46 files) have been copied from the source repository. The frontend has passed its TypeScript build in CI, but backend integration has not been verified.\n\n**Not yet ported:** Authentication, agents, RAG, PostgreSQL schemas/migrations, education, Telegram/WhatsApp, CRM, CMS, analytics, queues/workers, production deployments, end-to-end tests, and the remaining Python backend business logic.
 
