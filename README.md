@@ -13,7 +13,7 @@ Node.js / TypeScript migration of [ooarchitect92/Chat](https://github.com/ooarch
 - HTTP security response headers, deterministic injected-probe tests
 - GitHub Actions CI for type checking, tests, and compilation
 
-**Not yet ported:** React frontend files, authentication, agents, RAG, PostgreSQL schemas/migrations, education, Telegram/WhatsApp, CRM, CMS, analytics, queues/workers, production deployments, end-to-end tests, and all remaining Python business logic.
+**Imported unchanged:** The existing React frontend (568 source/repository files), website (197 files), and website-platform (46 files) have been copied from the source repository. The frontend has passed its TypeScript build in CI, but backend integration has not been verified.\n\n**Not yet ported:** Authentication, agents, RAG, PostgreSQL schemas/migrations, education, Telegram/WhatsApp, CRM, CMS, analytics, queues/workers, production deployments, end-to-end tests, and the remaining Python backend business logic.
 
 ## Start locally
 
