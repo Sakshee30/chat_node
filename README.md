@@ -15,6 +15,7 @@ Node.js / TypeScript migration of [ooarchitect92/Chat](https://github.com/ooarch
 - Python `security.py` token/JWT generation and verification, Argon2 password hashing/verification, API key generation and fingerprinting converted to Node.js TypeScript with unit tests (not wired into authentication endpoints yet)
 - Agent-purpose PostgreSQL query helpers and scoped authorization/delegation policy converted and unit-tested
 - Telegram manager request-validation and configuration security logic converted and unit-tested; its transactional event processor, deduplication, connection provisioning, and HTTP endpoints are **not** ported yet
+- Telegram Bot API transport client (getMe, managed bot methods, webhooks, callbacks, text delivery, retryability and chunking) converted to TypeScript with mocked-network tests; this client is not wired to any production channel worker
 
 **Imported unchanged:** The existing React frontend (568 source/repository files), website (197 files), and website-platform (46 files) have been copied from the source repository. The frontend has passed its TypeScript build in CI, but backend integration has not been verified.\n\n**Not yet ported:** Authentication, agents, RAG, PostgreSQL schemas/migrations, education, Telegram/WhatsApp, CRM, CMS, analytics, queues/workers, production deployments, end-to-end tests, and the remaining Python backend business logic.
 
