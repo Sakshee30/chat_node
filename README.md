@@ -1,29 +1,45 @@
 # chat_node
 
-Node.js / TypeScript migration workspace.
+Node.js / TypeScript migration of [ooarchitect92/Chat](https://github.com/ooarchitect92/Chat).
 
-> **Status: initial scaffold only.** This repository is NOT a complete migration of the private Python source. No original private source files have been copied here. The source repository must remain unchanged.
+> **Migration in progress: NOT feature-complete and NOT production-ready.**
+> The source repository is unchanged. A passing liveness check is not proof of feature parity.
 
-## Run
+## Current implementation
+
+- Fastify TypeScript application skeleton
+- `GET /health/live` (same JSON as the Python service)
+- `GET /health/ready` (PostgreSQL / Redis / NVIDIA checks; always 503 until the whole platform is verified)
+- HTTP security response headers, deterministic injected-probe tests
+- GitHub Actions CI for type checking, tests, and compilation
+
+**Not yet ported:** React frontend files, authentication, agents, RAG, PostgreSQL schemas/migrations, education, Telegram/WhatsApp, CRM, CMS, analytics, queues/workers, production deployments, end-to-end tests, and all remaining Python business logic.
+
+## Start locally
+
+Use Node.js 22+.
 
 ```bash
 cd backend
+cp .env.example .env
 npm install
-npm run dev
-# health: http://localhost:3001/health/live
+npm run typecheck
 npm test
+npm run dev
+# GET http://127.0.0.1:3001/health/live
+# GET http://127.0.0.1:3001/health/ready  (503 by design)
 ```
 
-## Migration quality gates
+Set `DATABASE_URL`, `REDIS_URL`, and (if needed) `NVIDIA_API_KEY` in the environment to test dependency connectivity. Do not commit actual values.
 
-- Keep the original project untouched.
-- Keep this destination private before transferring any private source, credentials, or proprietary artifacts.
-- Inventory existing API endpoints and request/response shapes, including /api/v1 and /v1 compatibility.
-- Port business logic and tenant isolation module by module, preserving contracts.
-- Port database schema and historical migration semantics without data loss.
-- Port all asynchronous workers, event consumers and integrations.
-- Preserve the React frontend and verify its compatibility with the new API.
-- Match original auth, security, audit, rate-limit and isolation behavior.
-- Run parity, integration, security and end-to-end tests before replacing production runtime.
+## Non-negotiable migration acceptance criteria
 
-**Do not deploy the scaffold as a replacement for the Python backend.**
+1. Inventory every source route, input/output schema, status code, cookie, policy, worker, environment variable, and migration.
+2. Preserve the existing UI; migrate the existing Python domain services to Node.js/TypeScript with equivalent behavior, not placeholder endpoints.
+3. Preserve existing PostgreSQL schema and data, tenant isolation, transaction boundaries, indices, pgvector operations, and permission checks. Never run destructive schema changes against live data.
+4. Preserve authentication, encryption, security, audit logging, idempotency, webhooks, and rate limits.
+5. Preserve RabbitMQ / Kafka / Redis background processes and retries, dead-letter semantics and event idempotency.
+6. Run equivalent integration and E2E tests against seeded environments, compare original vs new API behavior, and verify every feature.
+7. Switch readiness to successful only after migration completion and required services are operational.
+
+**Do not deploy this scaffold as a replacement for the Python backend.**
