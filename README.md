@@ -19,6 +19,7 @@ Node.js / TypeScript migration of [ooarchitect92/Chat](https://github.com/ooarch
 - Telegram Bot API transport client (getMe, managed bot methods, webhooks, callbacks, text delivery, retryability and chunking) converted to TypeScript with mocked-network tests; this client is not wired to any production channel worker
 - Redis rate limits and refresh-session family lifecycle ported from Python using compatible Redis keys/Lua scripts; fail-open memory fallback and fail-closed behavior unit-tested (not wired into live auth yet)
 - PostgreSQL tenant-scoped transaction helper ported from Python with transaction-local role and tenant setting, parameterized context, rollback and pool-release tests; not yet used by live API routes
+- Agent creation default-policy helpers ported from Python: legacy template-to-purpose mapping, support/lead/education starter instructions, deployment channel validation, and agent-avatar initial (unit-tested; agent creation endpoints not yet migrated)
 
 **Imported unchanged:** The existing React frontend (568 source/repository files), website (197 files), and website-platform (46 files) have been copied from the source repository. The frontend has passed its TypeScript build in CI, but its full test suite currently fails and backend integration has not been verified.\n\n**Not yet ported:** Authentication, agents, RAG, PostgreSQL schemas/migrations, education, Telegram/WhatsApp, CRM, CMS, analytics, queues/workers, production deployments, end-to-end tests, and the remaining Python backend business logic.
 
