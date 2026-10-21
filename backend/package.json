@@ -16,7 +16,9 @@
   "dependencies": {
     "fastify": "^5.2.0",
     "pg": "^8.13.0",
-    "ioredis": "^5.4.2"
+    "ioredis": "^5.4.2",
+    "jose": "^6.1.0",
+    "argon2": "^0.44.0"
   },
   "devDependencies": {
     "@types/node": "^22.13.0",
