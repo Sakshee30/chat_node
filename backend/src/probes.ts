@@ -1,5 +1,5 @@
 import { Pool } from 'pg';
-import Redis from 'ioredis';
+import { Redis } from 'ioredis';
 import type { ReadinessDependencies } from './readiness.js';
 
 /** Network probes only. No schema mutation or implicit reconnect loop. */
