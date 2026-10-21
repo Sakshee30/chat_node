@@ -10,6 +10,7 @@ Node.js / TypeScript migration of [ooarchitect92/Chat](https://github.com/ooarch
 - Fastify TypeScript application skeleton
 - `GET /health/live` (same JSON as the Python service)
 - `GET /health/ready` (PostgreSQL / Redis / NVIDIA checks; always 503 until the whole platform is verified)
+- `GET /metrics` (Prometheus metrics endpoint with request count, latency histograms, and Node.js process metrics; no sensitive route/user labels)
 - HTTP security response headers, deterministic injected-probe tests
 - GitHub Actions CI for type checking, tests, and compilation
 - Python `security.py` token/JWT generation and verification, Argon2 password hashing/verification, API key generation and fingerprinting converted to Node.js TypeScript with unit tests (not wired into authentication endpoints yet)
@@ -17,7 +18,7 @@ Node.js / TypeScript migration of [ooarchitect92/Chat](https://github.com/ooarch
 - Telegram manager request-validation and configuration security logic converted and unit-tested; its transactional event processor, deduplication, connection provisioning, and HTTP endpoints are **not** ported yet
 - Telegram Bot API transport client (getMe, managed bot methods, webhooks, callbacks, text delivery, retryability and chunking) converted to TypeScript with mocked-network tests; this client is not wired to any production channel worker
 
-**Imported unchanged:** The existing React frontend (568 source/repository files), website (197 files), and website-platform (46 files) have been copied from the source repository. The frontend has passed its TypeScript build in CI, but backend integration has not been verified.\n\n**Not yet ported:** Authentication, agents, RAG, PostgreSQL schemas/migrations, education, Telegram/WhatsApp, CRM, CMS, analytics, queues/workers, production deployments, end-to-end tests, and the remaining Python backend business logic.
+**Imported unchanged:** The existing React frontend (568 source/repository files), website (197 files), and website-platform (46 files) have been copied from the source repository. The frontend has passed its TypeScript build in CI, but its full test suite currently fails and backend integration has not been verified.\n\n**Not yet ported:** Authentication, agents, RAG, PostgreSQL schemas/migrations, education, Telegram/WhatsApp, CRM, CMS, analytics, queues/workers, production deployments, end-to-end tests, and the remaining Python backend business logic.
 
 ## Start locally
 
