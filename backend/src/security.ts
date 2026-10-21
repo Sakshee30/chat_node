@@ -44,7 +44,7 @@ export function generateApiKey(): { plaintext: string; prefix: string; fingerpri
 export async function hashPassword(password: string): Promise<string> {
   return argon2.hash(password, {
     type: argon2.argon2id, timeCost: 3, memoryCost: 65536,
-    parallelism: 4, hashLength: 32, saltLength: 16,
+    parallelism: 4, hashLength: 32, salt: randomBytes(16),
   });
 }
 export async function verifyPassword(password: string, hash: string | null | undefined): Promise<boolean> {
