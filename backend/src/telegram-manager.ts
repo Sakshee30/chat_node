@@ -1,5 +1,5 @@
 import { isIP } from 'node:net';
-import { timingSafeEqual } from 'node:crypto';
+import { createHash, timingSafeEqual } from 'node:crypto';
 
 export interface TelegramManagerConfiguration {
   token: string;
@@ -60,14 +60,10 @@ export function telegramManagerConfig(env: NodeJS.ProcessEnv): TelegramManagerCo
 
 /** Fixed-size digest comparisons avoid leaking the expected secret length or bytes. */
 export function verifyTelegramWebhookSecret(expected: string, supplied: string | undefined): boolean {
-  const { createHash } = requireCrypto();
   const lhs = createHash('sha256').update(expected, 'utf8').digest();
   const rhs = createHash('sha256').update(supplied || '', 'utf8').digest();
   return Boolean(expected) && timingSafeEqual(lhs, rhs);
 }
-function requireCrypto() { return cryptoHelpers; }
-import { createHash as hash } from 'node:crypto';
-const cryptoHelpers = { createHash: hash };
 
 export interface TelegramManagerUpdate { update_id: number; [key: string]: unknown }
 export function validateTelegramManagerUpdate(rawBody: Uint8Array): TelegramManagerUpdate {
